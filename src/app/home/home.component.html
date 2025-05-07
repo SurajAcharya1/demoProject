@@ -1,0 +1,30 @@
+<nb-layout>
+  <nb-layout-header>
+    <div class="container-fluid">
+      <div class="row w-100">
+        <div class="col-md-1 ps-3" style="padding-top: 0.6rem;">
+          <span (click)="expandCollapse(sidebarStatus)" style="cursor: pointer">
+            <i class="bi-border-width"></i>
+          </span>
+        </div>
+        <div class="col-md-10 text-center">
+          <nb-search type="rotate-layout"></nb-search>
+        </div>
+        <div class="col-md-1 text-end">
+          <nb-user [nbContextMenu]="contextMenuItems"
+                   [name]="localStorage.name"
+                   [title]="localStorage.roleType"
+                   nbContextMenuTrigger="hover">
+          </nb-user>
+        </div>
+      </div>
+    </div>
+  </nb-layout-header>
+  <nb-sidebar [state]="sidebarStatus">
+    <nb-menu [items]="items"></nb-menu>
+  </nb-sidebar>
+  <nb-layout-column style="height: 85vh; overflow-y: auto;">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-layout-footer>footer</nb-layout-footer>
+</nb-layout>

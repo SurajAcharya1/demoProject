@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@use '../node_modules/@nebular/theme/styles/all' as *;
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+$nb-enabled-themes: (default);
+$nb-enable-css-custom-properties: false;
+
+@include nb-install() {
+  @include nb-theme-global();
+}

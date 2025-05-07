@@ -1,0 +1,65 @@
+
+<h6><span *appCustomDirective="1">Hello, {{localStorage.name | titlecase}}</span></h6>
+<nb-card style="border-radius: 15px;">
+  <nb-card-body>
+    <div>
+      <strong>Time: {{time()}}.{{ms()}}</strong>
+    </div>
+    <div>
+      <strong>
+        double time: {{double()}}
+      </strong>
+    </div>
+    <button class="me-1" size="small" nbButton status="success" (click)="startTimer()">
+      <i class="bi-play" style="font-size: large; font-weight: bolder; color: black"></i>
+    </button>
+    <button class="me-1"  size="small" nbButton status="info" (click)="pause(false)">
+      <i class="bi-pause" style="font-size: large; font-weight: bolder; color: black"></i>
+    </button>
+    <button class="me-1"  size="small" nbButton status="danger" (click)="pause()">
+      <i class="bi-stop" style="font-size: large; font-weight: bolder; color: black"></i>
+    </button>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="demoForm">
+      <div style="margin-bottom: 0.5rem">
+        <input nbInput
+               type="text"
+               name="name"
+               id="name"
+               formControlName="name"
+               placeholder="Enter name">
+      </div>
+      <div style="margin-bottom: 0.5rem">
+        <input nbInput
+               type="number"
+               name="age"
+               id="age"
+               formControlName="age"
+               placeholder="Enter Age">
+        <div *ngFor="let des of getHobbyControl(); let i = index" formArrayName="hobby">
+          <ng-container [formGroupName]="i">
+            <input nbInput type="text" name="desc" id="desc" formControlName="desc" placeholder="Write Description">
+          </ng-container>
+        </div>
+      </div>
+      <button nbButton
+              status="success"
+              type="button"
+              (click)="addHobby()"
+              class="me-1">add hobby + </button>
+      <button nbButton status="info" (click)="submit()">submit</button>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-body>
+    <button nbButton status="basic" (click)="getData()">
+      Get {{localStorage?.roleType | titlecase}} Data
+    </button>
+    {{userData}}
+  </nb-card-body>
+</nb-card>
