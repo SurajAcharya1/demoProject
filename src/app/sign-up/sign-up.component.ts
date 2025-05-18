@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {Router, RouterLink} from "@angular/router";
 import {Gender} from "../emuns/gender";
 import {NbSelectModule} from "@nebular/theme";
-import {LocalStorage, LocalStorageUtil} from "../utils/LocalStorageUtil";
 import {AuthService} from "../services/auth.service";
 
 @Component({

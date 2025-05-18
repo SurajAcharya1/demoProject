@@ -1,0 +1,12 @@
+<form [formGroup]="nameOfFormGroup">
+  <label [for]=id>{{label}}</label>
+  <br>
+  <nb-select [id]="id"
+             [placeholder]="placeholder"
+             [formControlName]="control" style="border: 1px solid #dee2e6; border-radius: 5px; width: 100%">
+      <nb-option *ngFor="let option of options"
+                 [value]="isWholeObjectValue ? option : option[value]">
+        {{isWholeObjectValue ? option: option[displayText]}}
+      </nb-option>
+  </nb-select>
+</form>

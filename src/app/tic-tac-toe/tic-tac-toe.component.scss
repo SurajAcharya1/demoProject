@@ -1,0 +1,37 @@
+td {
+  width: 8rem;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bolder;
+  font-size: xxx-large;
+}
+
+td:active {
+  background-color: #e0e0e0;
+  transform: scale(0.97);
+}
+
+tr {
+  height: 8rem;
+}
+
+td {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bolder;
+  font-size: xxx-large;
+  overflow: hidden; // ensures ::after stays inside
+}
+
+td:active {
+  background-color: #e0e0e0;
+  transform: scale(0.97);
+}
+
+.highlight-section {
+  background-color: lightblue;
+}
+

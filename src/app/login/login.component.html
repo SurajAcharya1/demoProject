@@ -10,13 +10,13 @@
           <div class="p-5" style="background-color: #edf1f7">
             <form [formGroup]="loginForm">
               <div class="form-outline mb-4">
-                <label class="form-label mb-1" for="form3Example3">Email address</label>
+                <label class="form-label mb-1" for="form3Example3">Enter Username</label>
                 <input type="email" id="form3Example3" class="form-control form-control-lg"
                        formControlName="username"
                        [ngClass]="{'is-invalid': submitted && loginForm.get('username')?.errors}"
-                       placeholder="Enter a valid email address"/>
+                       placeholder="Enter username"/>
                 <div *ngIf="submitted && loginForm.get('username')?.errors">
-                  <span class="text-danger">Enter the username</span>
+                  <span class="text-danger">Username is required</span>
                 </div>
               </div>
 

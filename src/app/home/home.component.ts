@@ -46,10 +46,18 @@ export class HomeComponent implements OnInit {
     {
       title: 'Profile',
       link: '/home/profile'
+    },
+    {
+      title: 'Game',
+      link: '/home/game'
+    },
+    {
+      title: 'Form',
+      link: '/home/form'
     }
   ];
 
-  sidebarStatus!: 'expanded' | 'compacted';
+  sidebarStatus: 'expanded' | 'compacted' = "expanded";
 
   contextMenuItems = [
     { title: 'Profile' },

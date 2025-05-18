@@ -1,0 +1,53 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="row mb-3">
+
+        <app-input *ngFor="let input of inputFormFields"
+                   class="col-md-4"
+                   [nameOfFormGroup]="form"
+                   [label]="input.label"
+                   [id]="input.id"
+                   [name]="input.name"
+                   [placeholder]="input.placeholder"
+                   [control]="input.control"
+                   [type]="input.type"></app-input>
+
+        <app-select *ngFor="let input of selectFormFields"
+                    class="col-md-4"
+                    [nameOfFormGroup]="form"
+                    [label]="input.label"
+                    [id]="input.id"
+                    [name]="input.name"
+                    [placeholder]="input.placeholder"
+                    [control]="input.control"
+                    [options]="input.options"
+                    [value]="input.value"
+                    [displayText]="input.displayText"
+                    [isWholeObjectValue]="false"></app-select>
+
+        <ng-container *ngFor="let hobby of getHobbyControl(); let i = index" formArrayName="hobby">
+          <ng-container [formGroupName]="i">
+            <app-input *ngFor="let input of hobbyControls"
+                       class="col-md-4"
+                       [nameOfFormGroup]="castToFormGroup(hobby)"
+                       [label]="input.label"
+                       [id]="input.id"
+                       [name]="input.name"
+                       [placeholder]="input.placeholder"
+                       [control]="input.control"
+                       [type]="input.type"></app-input>
+          </ng-container>
+        </ng-container>
+      </div>
+      <button nbButton
+              status="success"
+              type="button"
+              (click)="addHobby()"
+              class="me-1 float-end">add hobby + </button>
+      <button nbButton size="medium" status="primary" class="col-md-1" type="button" (click)="submit()">submit</button>
+    </form>
+
+
+  </nb-card-body>
+</nb-card>

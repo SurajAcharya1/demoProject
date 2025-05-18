@@ -2,13 +2,13 @@
   <nb-layout-header>
     <div class="container-fluid">
       <div class="row w-100">
-        <div class="col-md-1 ps-3" style="padding-top: 0.6rem;">
+        <div class="col-md-1 ps-3 pt-3">
           <span (click)="expandCollapse(sidebarStatus)" style="cursor: pointer">
-            <i class="bi-border-width"></i>
+            <i class="bi-list" style="font-size: x-large"></i>
           </span>
         </div>
         <div class="col-md-10 text-center">
-          <nb-search type="rotate-layout"></nb-search>
+<!--          <nb-search type="rotate-layout"></nb-search>-->
         </div>
         <div class="col-md-1 text-end">
           <nb-user [nbContextMenu]="contextMenuItems"
