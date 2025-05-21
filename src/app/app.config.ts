@@ -6,6 +6,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 import {NbIconLibraries, NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule} from "@nebular/theme";
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {apiInterceptor} from "./ApiInterceptor";
+import {TitleCasePipe} from "@angular/common";
+import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +18,7 @@ export const appConfig: ApplicationConfig = {
     ...(NbMenuModule.forRoot().providers ?? []),
     provideHttpClient(withInterceptors([apiInterceptor])),
     NbLayoutModule,
+    TitleCasePipe,
+    provideAnimations()
   ]
 };

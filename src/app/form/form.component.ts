@@ -1,10 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {Gender} from "../emuns/gender";
 import {InputComponent} from "./input/input.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, TitleCasePipe} from "@angular/common";
 import {SelectComponent} from "./select/select.component";
-import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {NbButtonModule, NbCardModule} from "@nebular/theme";
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule
+} from "@angular/forms";
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbInputModule,
+  NbSelectModule,
+  NbToggleModule
+} from "@nebular/theme";
 import {InputForm} from "../class/InputForm";
 import {SelectForm} from "../class/SelectForm";
 
@@ -17,7 +30,11 @@ import {SelectForm} from "../class/SelectForm";
     SelectComponent,
     ReactiveFormsModule,
     NbButtonModule,
-    NbCardModule
+    NbCardModule,
+    NbInputModule,
+    NbSelectModule,
+    TitleCasePipe,
+    NbToggleModule
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
@@ -75,13 +92,40 @@ export class FormComponent implements OnInit {
     }
   ]
 
-  form: FormGroup = new FormGroup<any>({});
+  inputTypes = [
+    'text',
+    'color',
+    'password',
+    'button',
+    'hidden',
+    'number',
+    'checkbox',
+    'date',
+    'datetime-local',
+    'email',
+    'file',
+    'image',
+    'month',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'time',
+    'week'
+  ]
 
-  constructor(private formBuilder: FormBuilder) {
+  form: FormGroup = new FormGroup<any>({});
+  formCreater: FormGroup = new FormGroup<any>({});
+
+  constructor(private formBuilder: FormBuilder,
+              private titleCasePipe: TitleCasePipe) {
   }
 
   ngOnInit(): void {
     this.buildForm();
+    this.buildFormCreater();
   }
 
   buildForm() {
@@ -111,5 +155,54 @@ export class FormComponent implements OnInit {
 
   castToFormGroup (controls: AbstractControl<any>) {
     return controls as FormGroup;
+  }
+
+  buildFormCreater() {
+    this.formCreater = this.formBuilder.group({
+      label: undefined,
+      id: undefined,
+      name: undefined,
+      placeholder: undefined,
+      control: undefined,
+      type: 'text',
+      createArray: false,
+      arrayForWhat: undefined
+    });
+  }
+
+  pushToInputFieldsArray() {
+    const formValue = this.formCreater?.value;
+    const camelCasedLabel = this.toCamelCase(formValue.label);
+    const inputObject: InputForm = {
+      label: formValue.label,
+      id: camelCasedLabel,
+      name: camelCasedLabel,
+      placeholder: formValue.placeholder,
+      control: camelCasedLabel,
+      type: formValue.type
+    }
+    if (this.formCreater.get('createArray')?.value) {
+      this.form.setControl(this.toCamelCase(this.formCreater.get('arrayForWhat')?.value),
+        this.formBuilder.array([this.formBuilder.group({[camelCasedLabel]: this.formBuilder.control(undefined)})]))
+    } else {
+      this.form.setControl(camelCasedLabel, this.formBuilder.control(undefined));
+    }
+    console.log('form:::', this.form)
+    console.log(inputObject);
+    this.inputFormFields.push(inputObject);
+    this.formCreater.reset();
+  }
+
+  toCamelCase(value: string) {
+    const splitString = value.trim().split(' ');
+    let camelCasedString = '';
+    splitString.forEach((value, i) => {
+      if (i === 0) {
+        camelCasedString += value.toLowerCase();
+      } else {
+        camelCasedString += this.titleCasePipe.transform(value);
+      }
+    });
+    return camelCasedString;
   }
 }

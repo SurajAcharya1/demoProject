@@ -24,6 +24,6 @@ export const routes: Routes = [
           import('./tic-tac-toe/tic-tac-toe.component').then(m => m.TicTacToeComponent)},
       {path: 'form', component: FormComponent}
     ],
-    canActivate: [authGuard]
+    // canActivate: [authGuard]
   }
 ];

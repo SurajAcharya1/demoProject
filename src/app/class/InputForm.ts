@@ -1,10 +1,10 @@
-export class InputForm {
-  label!: string;
-  id!: string;
-  name!: string;
-  placeholder!: string;
-  control!: string;
-  type!:
+export interface InputForm {
+  label: string;
+  id: string;
+  name: string;
+  placeholder: string;
+  control: string;
+  type:
     'color' |
     'password' |
     'text' |

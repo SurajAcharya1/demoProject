@@ -6,6 +6,8 @@ import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from
 import {LocalStorageUtil} from "../utils/LocalStorageUtil";
 import {RoleType} from "../emuns/role-type";
 import {UserService} from "../services/user.service";
+import {finalize} from "rxjs";
+import {log} from "node:util";
 
 @Component({
   selector: 'app-dashboard',
@@ -101,7 +103,9 @@ export class DashboardComponent implements OnInit{
 
   getData() {
     if (this.localStorage.roleType === RoleType.ADMIN) {
-      this.userService.getAdmin().subscribe({
+      this.userService.getAdmin().pipe(
+        finalize(() => console.log("hello"))
+      ).subscribe({
         next: res => {
           console.log(res);
           this.userData = res;

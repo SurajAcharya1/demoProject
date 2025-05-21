@@ -1,5 +1,55 @@
 <nb-card>
   <nb-card-body>
+    <form [formGroup]="formCreater">
+      <div>
+        <ng-container>
+          <nb-toggle formControlName="createArray">Create Array</nb-toggle>
+        </ng-container>
+        @if (formCreater.get('createArray')?.value) {
+          <input nbInput id="arrayForWhat"
+                 class="ms-2"
+                 name="arrayForWhat"
+                 placeholder="Array for What?"
+                 formControlName="arrayForWhat"
+                 type="text">
+        }
+      </div>
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <label for="label">Label</label>
+          <input class="form-control mb-2" id="label"
+                 name="label"
+                 placeholder="Enter Label"
+                 formControlName="label"
+                 type="text">
+        </div>
+        <div class="col-md-4">
+          <label for="placeholder">Placeholder</label>
+          <input class="form-control mb-2" id="placeholder"
+                 name="placeholder"
+                 placeholder="Enter Placeholder"
+                 formControlName="placeholder"
+                 type="text">
+        </div>
+        <div class="col-md-4">
+          <label for="type">Type</label>
+          <select id="type"
+                  class="form-control mb-2"
+                  name="type"
+                  formControlName="type">
+            <option *ngFor="let type of inputTypes"
+                       [value]="type">{{type | titlecase}}</option>
+          </select>
+        </div>
+      </div>
+      <button nbButton type="button" status="primary" (click)="pushToInputFieldsArray()">Populate</button>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+
+<nb-card>
+  <nb-card-body>
     <form [formGroup]="form">
       <div class="row mb-3">
 
