@@ -1,0 +1,60 @@
+.star-path-container {
+  width: 120px;
+  height: 120px;
+  margin: 100px auto;
+  background: #1e293b; /* dark bg for contrast */
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Animate the star path drawing */
+#starPath {
+  stroke-dasharray: 320; /* approx length of star path */
+  stroke-dashoffset: 320;
+  animation: drawLine 5s ease-in-out infinite;
+}
+
+/* The dot that moves along the path */
+.dot {
+  transform-origin: center;
+  animation: moveDot 5s linear infinite;
+}
+
+/* Animate stroke drawing and reversing */
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 320;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 320;
+  }
+}
+
+/* Animate dot moving along the path */
+@keyframes moveDot {
+  0% {
+    offset-distance: 0%;
+  }
+  50% {
+    offset-distance: 100%;
+  }
+  100% {
+    offset-distance: 0%;
+  }
+}
+
+/* Using offset-path with the star path */
+.dot {
+  offset-path: path("M50 10 L61.8 38.2 L90 38.2 L67 57 L75 85 L50 70 L25 85 L33 57 L10 38.2 L38.2 38.2 Z");
+  offset-distance: 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 5px #fbbf24);
+}

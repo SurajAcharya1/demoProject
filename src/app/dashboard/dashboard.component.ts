@@ -7,7 +7,8 @@ import {LocalStorageUtil} from "../utils/LocalStorageUtil";
 import {RoleType} from "../emuns/role-type";
 import {UserService} from "../services/user.service";
 import {finalize} from "rxjs";
-import {log} from "node:util";
+import {SpinnerService} from "../services/spinner.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,8 @@ import {log} from "node:util";
     NbInputModule,
     NgForOf,
     ReactiveFormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    MatIcon
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -29,8 +31,6 @@ export class DashboardComponent implements OnInit{
   time = signal<number>(0);
   ms = signal<number>(0);
   running = signal<boolean>(false);
-  interval = signal<any>(null);
-  msInterval = signal<any>(null);
   double = computed(() => this.time() * 2);
   demoForm: FormGroup = new FormGroup<any>({});
   localStorage = LocalStorageUtil.getStorage();
@@ -40,7 +40,8 @@ export class DashboardComponent implements OnInit{
   userData: any;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
@@ -102,26 +103,37 @@ export class DashboardComponent implements OnInit{
   }
 
   getData() {
+    this.spinnerService.show();
     if (this.localStorage.roleType === RoleType.ADMIN) {
-      this.userService.getAdmin().pipe(
+      this.spinnerService.show();
+      const a = this.userService.getAdmin().pipe(
         finalize(() => console.log("hello"))
       ).subscribe({
         next: res => {
           console.log(res);
           this.userData = res;
+          this.spinnerService.hide();
         }, error: err => {
           console.log(err);
+          this.spinnerService.hide();
         }
-      })
+      });
+      if (a.closed) a.unsubscribe();
     }
     if (this.localStorage.roleType === RoleType.USER) {
+      this.spinnerService.show();
       this.userService.getUser().subscribe({
         next: res => {
           this.userData = res;
+          this.spinnerService.hide();
         }, error: err => {
           console.log(err);
+          this.spinnerService.hide();
         }
       })
     }
+    setTimeout(() => {
+      this.spinnerService.hide();
+    }, 2000)
   }
 }

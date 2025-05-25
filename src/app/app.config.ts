@@ -8,6 +8,11 @@ import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/c
 import {apiInterceptor} from "./ApiInterceptor";
 import {TitleCasePipe} from "@angular/common";
 import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { importProvidersFrom } from '@angular/core';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {provideNativeDateAdapter} from "@angular/material/core";
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +24,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([apiInterceptor])),
     NbLayoutModule,
     TitleCasePipe,
-    provideAnimations()
+    provideAnimations(),
+    importProvidersFrom(MatProgressSpinnerModule),
+    provideNativeDateAdapter()
   ]
 };

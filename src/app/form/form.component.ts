@@ -20,6 +20,8 @@ import {
 } from "@nebular/theme";
 import {InputForm} from "../class/InputForm";
 import {SelectForm} from "../class/SelectForm";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatRipple} from "@angular/material/core";
 
 @Component({
   selector: 'app-form',
@@ -34,7 +36,10 @@ import {SelectForm} from "../class/SelectForm";
     NbInputModule,
     NbSelectModule,
     TitleCasePipe,
-    NbToggleModule
+    NbToggleModule,
+    MatGridList,
+    MatGridTile,
+    MatRipple
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'

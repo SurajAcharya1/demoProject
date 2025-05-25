@@ -42,6 +42,7 @@
         <div *ngFor="let des of getHobbyControl(); let i = index" formArrayName="hobby">
           <ng-container [formGroupName]="i">
             <input nbInput type="text" name="desc" id="desc" formControlName="desc" placeholder="Write Description">
+            <button nbButton (click)="removeHobby(i)"><i class="bi bi-trash-fill"></i></button>
           </ng-container>
         </div>
       </div>
@@ -58,7 +59,7 @@
 <nb-card>
   <nb-card-body>
     <button nbButton status="basic" (click)="getData()">
-      Get {{localStorage?.roleType | titlecase}} Data
+      Get {{localStorage.roleType | titlecase}} Data
     </button>
     {{userData}}
   </nb-card-body>
